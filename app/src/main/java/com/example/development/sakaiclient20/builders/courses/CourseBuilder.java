@@ -6,11 +6,9 @@ import com.example.development.sakaiclient20.models.custom.Course;
 import com.example.development.sakaiclient20.models.custom.SitePage;
 import com.example.development.sakaiclient20.models.custom.Term;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 

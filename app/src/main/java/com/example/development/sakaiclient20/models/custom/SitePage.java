@@ -1,7 +1,5 @@
 package com.example.development.sakaiclient20.models.custom;
 
-import org.json.JSONObject;
-
 public class SitePage {
 
     private String url;

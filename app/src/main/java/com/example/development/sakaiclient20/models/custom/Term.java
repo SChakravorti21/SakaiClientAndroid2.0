@@ -1,5 +1,7 @@
 package com.example.development.sakaiclient20.models.custom;
 
+import android.support.annotation.NonNull;
+
 import java.io.Serializable;
 
 public class Term implements Comparable<Term>, Serializable{
@@ -9,7 +11,6 @@ public class Term implements Comparable<Term>, Serializable{
     private String termString;
 
     public Term(String term_eid) {
-
         String[] splitTerm = term_eid.split(":");
         this.year = Integer.parseInt(splitTerm[0]);
         this.termInt = Integer.parseInt(splitTerm[1]);
@@ -19,7 +20,6 @@ public class Term implements Comparable<Term>, Serializable{
 
 
     private static String intToTerm(int termInt) {
-
         if (termInt == 0) {
             return "General";
         } else if (termInt >= 12) {
@@ -35,11 +35,7 @@ public class Term implements Comparable<Term>, Serializable{
 
 
     @Override
-    public int compareTo(Term other) {
-
-        if (other == null) {
-            return 1;
-        }
+    public int compareTo(@NonNull Term other) {
 
         if (this.year < other.year) {
             return -1;
@@ -54,6 +50,7 @@ public class Term implements Comparable<Term>, Serializable{
         }
 
         return 0;
+
     }
 
 
@@ -73,6 +70,5 @@ public class Term implements Comparable<Term>, Serializable{
     public String toString() {
         return this.termString + "  " + this.termInt;
     }
-
 
 }

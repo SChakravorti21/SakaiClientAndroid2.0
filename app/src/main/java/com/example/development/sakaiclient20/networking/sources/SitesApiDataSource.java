@@ -12,7 +12,6 @@ import org.json.JSONObject;
 
 import java.util.List;
 
-import io.reactivex.Observable;
 import io.reactivex.Single;
 
 /**

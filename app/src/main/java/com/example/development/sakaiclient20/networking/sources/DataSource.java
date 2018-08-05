@@ -1,6 +1,5 @@
 package com.example.development.sakaiclient20.networking.sources;
 
-import io.reactivex.Observable;
 import io.reactivex.Single;
 
 /**

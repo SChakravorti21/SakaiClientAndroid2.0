@@ -2,7 +2,6 @@ package com.example.development.sakaiclient20.networking.services;
 
 import com.example.development.sakaiclient20.models.sakai.assignments.AssignmentsResponse;
 
-import io.reactivex.Observable;
 import io.reactivex.Single;
 import retrofit2.http.GET;
 import retrofit2.http.Path;

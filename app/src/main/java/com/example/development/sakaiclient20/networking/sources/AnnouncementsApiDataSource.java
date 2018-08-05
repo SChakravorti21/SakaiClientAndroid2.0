@@ -7,15 +7,11 @@ import com.example.development.sakaiclient20.models.sakai.announcements.Announce
 import com.example.development.sakaiclient20.networking.services.AnnouncementsService;
 import com.example.development.sakaiclient20.networking.services.ServiceFactory;
 
-import java.time.LocalDate;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-import io.reactivex.Observable;
 import io.reactivex.Single;
-import io.reactivex.functions.Function;
 
 /**
  * Created by Development on 8/5/18.

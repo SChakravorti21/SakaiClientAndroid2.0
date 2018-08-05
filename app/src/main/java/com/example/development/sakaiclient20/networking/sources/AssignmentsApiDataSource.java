@@ -9,7 +9,6 @@ import com.example.development.sakaiclient20.networking.services.ServiceFactory;
 
 import java.util.List;
 
-import io.reactivex.Observable;
 import io.reactivex.Single;
 
 /**

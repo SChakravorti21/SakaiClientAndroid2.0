@@ -1,4 +1,4 @@
-package com.example.development.sakaiclient20.networking.datasources;
+package com.example.development.sakaiclient20.networking.sources;
 
 import android.content.Context;
 

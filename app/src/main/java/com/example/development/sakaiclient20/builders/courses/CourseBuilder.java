@@ -1,6 +1,6 @@
 package com.example.development.sakaiclient20.builders.courses;
 
-import com.example.development.sakaiclient20.builders.Builder;
+import com.example.development.sakaiclient20.builders.AbstractBuilder;
 import com.example.development.sakaiclient20.builders.SitePagesBuilder;
 import com.example.development.sakaiclient20.models.custom.Course;
 import com.example.development.sakaiclient20.models.custom.SitePage;
@@ -9,17 +9,14 @@ import com.example.development.sakaiclient20.models.custom.Term;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import okhttp3.ResponseBody;
 
 /**
  * Created by Development on 8/5/18.
  */
 
-public class CourseBuilder extends Builder<JSONObject, Course> {
+public class CourseBuilder extends AbstractBuilder<JSONObject, Course> {
 
     public CourseBuilder(JSONObject jsonObject) {
         super(jsonObject);

@@ -13,7 +13,7 @@ import java.util.List;
  * Created by Development on 8/5/18.
  */
 
-public class SitePagesBuilder extends Builder<JSONArray, List<SitePage>> {
+public class SitePagesBuilder extends AbstractBuilder<JSONArray, List<SitePage>> {
 
     private String assignmentSitePageUrl;
 
@@ -22,7 +22,7 @@ public class SitePagesBuilder extends Builder<JSONArray, List<SitePage>> {
     }
 
     @Override
-    public Builder<JSONArray, List<SitePage>> build() throws JSONException {
+    public AbstractBuilder<JSONArray, List<SitePage>> build() throws JSONException {
         result = new ArrayList<>();
 
         for (int index = 0; index < source.length(); index++) {

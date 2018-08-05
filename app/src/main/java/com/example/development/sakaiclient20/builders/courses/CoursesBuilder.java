@@ -28,12 +28,11 @@ public class CoursesBuilder extends Builder<ResponseBody, List<Course>> {
     public CoursesBuilder build() throws IOException, JSONException {
         this.result = new ArrayList<>();
 
-        JSONObject obj = new JSONObject(this.source.string());
-        JSONArray courses = obj.getJSONArray("site_collection");
+        JSONObject json = new JSONObject(this.source.string());
+        JSONArray courses = json.getJSONArray("site_collection");
 
-        for (int i = 0; i < courses.length(); i++) {
-
-            JSONObject courseJSON = courses.getJSONObject(i);
+        for (int index = 0; index < courses.length(); index++) {
+            JSONObject courseJSON = courses.getJSONObject(index);
             Course course = new CourseBuilder(courseJSON).build().getResult();
             this.result.add(course);
 

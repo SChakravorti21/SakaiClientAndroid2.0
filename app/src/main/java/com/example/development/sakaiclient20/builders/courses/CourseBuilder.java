@@ -1,6 +1,7 @@
 package com.example.development.sakaiclient20.builders.courses;
 
 import com.example.development.sakaiclient20.builders.Builder;
+import com.example.development.sakaiclient20.builders.SitePagesBuilder;
 import com.example.development.sakaiclient20.models.custom.Course;
 import com.example.development.sakaiclient20.models.custom.SitePage;
 import com.example.development.sakaiclient20.models.custom.Term;
@@ -11,6 +12,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Development on 8/5/18.
@@ -26,56 +28,53 @@ public class CourseBuilder extends Builder<JSONObject, Course> {
     public CourseBuilder build() throws JSONException {
         result = new Course();
 
-        String id = source.getString("id");
-        result.setId(id);
+        result.setTerm(parseTerm());
+        result.setSubjectCode(parseSubjectCode());
 
-        String desc = source.getString("description");
-        result.setDescription(desc);
+        result.setId(source.getString("id"));
+        result.setTitle(source.getString("title"));
+        result.setDescription(source.getString("description"));
+        result.setSiteOwner(source.getJSONObject("siteOwner").getString("userDisplayName"));
 
-        String title = source.getString("title");
-        result.setTitle(title);
-
-        JSONObject props = source.getJSONObject("props");
+        List<SitePage> sitePages = new ArrayList<>();
+        SitePagesBuilder builder = new SitePagesBuilder(source.getJSONArray("sitePages"));
         try {
-            String termEID = props.getString("term_eid");
-            Term courseTerm = new Term(termEID);
-            result.setTerm(courseTerm);
+            sitePages = builder.build().getResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            result.setSitePages(sitePages);
+            result.setAssignmentSitePageUrl(builder.getAssignmentSitePageUrl());
         }
-        catch(JSONException e) {
-            Term courseTerm = new Term("0000:0");
-            result.setTerm(courseTerm);
-        }
-
-        JSONObject siteOwner = source.getJSONObject("siteOwner");
-        String ownerName = siteOwner.getString("userDisplayName");
-        result.setSiteOwner(ownerName);
-
-
-        String providerGroupId = source.getString("providerGroupId");
-        if (!providerGroupId.equals("null")) {
-
-            providerGroupId = providerGroupId.replace("+", "_delim_");
-
-            String courseCode = providerGroupId.split("_delim_")[0];
-            String subjectCode = courseCode.split(":")[3];
-            result.setSubjectCode(Integer.parseInt(subjectCode));
-
-        }
-
-        ArrayList<SitePage> sitePages = new ArrayList<>();
-        JSONArray sitePagesObj = source.getJSONArray("sitePages");
-        for (int j = 0; j < sitePagesObj.length(); j++) {
-            JSONObject pageObj = sitePagesObj.getJSONObject(j);
-            SitePage sitePage = new SitePage(pageObj);
-            sitePages.add(sitePage);
-
-            if(sitePage.getTitle().toLowerCase().contains("assignment")) {
-                result.setAssignmentSitePageUrl(sitePage.getUrl());
-            }
-        }
-
-        result.setSitePages(sitePages);
 
         return this;
+    }
+
+    private Term parseTerm() {
+        Term courseTerm;
+        try {
+            JSONObject props = source.getJSONObject("props");
+            String termEid = props.getString("term_eid");
+            courseTerm = new Term(termEid);
+        } catch(JSONException e) {
+            courseTerm = new Term("0000:0");
+        }
+
+        return courseTerm;
+    }
+
+    private int parseSubjectCode() throws JSONException {
+
+        String providerGroupId = source.getString("providerGroupId");
+
+        if (!providerGroupId.equals("null")) {
+            providerGroupId = providerGroupId.replace("+", "_delim_");
+            String courseCode = providerGroupId.split("_delim_")[0];
+            String subjectCode = courseCode.split(":")[3];
+
+            return Integer.parseInt(subjectCode);
+        }
+
+        return 0;
     }
 }

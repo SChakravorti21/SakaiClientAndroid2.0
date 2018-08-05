@@ -8,16 +8,10 @@ public class SitePage {
     private String title;
     private String siteId;
 
-    public SitePage(JSONObject jsonObj) {
-
-        try {
-            this.siteId = jsonObj.getString("id");
-            this.title = jsonObj.getString("title");
-            this.url = jsonObj.getString("url");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+    public SitePage(String siteId, String title, String url) {
+        this.siteId = siteId;
+        this.title = title;
+        this.url = url;
     }
 
     public String getId() {

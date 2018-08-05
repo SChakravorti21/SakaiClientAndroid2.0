@@ -15,7 +15,7 @@ public class Course implements Serializable {
     private String title;
     private String description;
     private Term term;
-    private ArrayList<SitePage> sitePages;
+    private List<SitePage> sitePages;
     private String siteOwner;
     private int subjectCode;
     private List<Grade> grades;
@@ -67,7 +67,7 @@ public class Course implements Serializable {
         return term;
     }
 
-    public ArrayList<SitePage> getSitePages() {
+    public List<SitePage> getSitePages() {
         return sitePages;
     }
 
@@ -95,7 +95,7 @@ public class Course implements Serializable {
         this.term = term;
     }
 
-    public void setSitePages(ArrayList<SitePage> sitePages) {
+    public void setSitePages(List<SitePage> sitePages) {
         this.sitePages = sitePages;
     }
 

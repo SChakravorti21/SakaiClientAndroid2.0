@@ -15,11 +15,11 @@ public class AssignmentsResponse implements Serializable
     private List<Assignment> assignment = new ArrayList<Assignment>();
     private final static long serialVersionUID = 6209006925278274013L;
 
-    public List<Assignment> getAssignment() {
+    public List<Assignment> getAssignments() {
         return assignment;
     }
 
-    public void setAssignment(List<Assignment> assignment) {
+    public void setAssignments(List<Assignment> assignment) {
         this.assignment = assignment;
     }
 

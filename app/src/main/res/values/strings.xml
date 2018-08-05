@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">SakaiClient2.0</string>
+
+    <string name="BASE_URL">https://sakai.rutgers.edu/direct/</string>
+    <string name="CAS_BASE_URL">https://cas.rutgers.edu/login?service=https%3A%2F%2Fsakai.rutgers.edu%2Fsakai-login-tool%2Fcontainer</string>
+    <string name="COOKIE_URL_1">https://sakai.rutgers.edu/sakai-login-tool/container</string>
+    <string name="COOKIE_URL_2">https://sakai.rutgers.edu/portal</string>
+</resources>

@@ -7,10 +7,15 @@ import com.example.development.sakaiclient20.models.sakai.announcements.Announce
 import com.example.development.sakaiclient20.networking.services.AnnouncementsService;
 import com.example.development.sakaiclient20.networking.services.ServiceFactory;
 
+import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.Single;
+import io.reactivex.functions.Function;
 
 /**
  * Created by Development on 8/5/18.
@@ -37,6 +42,10 @@ public class AnnouncementsApiDataSource implements DataSource<List<Announcement>
         return new AnnouncementsApiDataSource(announcementsService);
     }
 
+    private AnnouncementsApiDataSource(AnnouncementsService announcementsService) {
+        this.announcementsService = announcementsService;
+    }
+
     // Sakai always shows the most recent 10 announcements
     @Override
     public Single<List<Announcement>> getAll() {
@@ -49,8 +58,19 @@ public class AnnouncementsApiDataSource implements DataSource<List<Announcement>
         return getForSite(siteId, MAX_DAYS);
     }
 
-    private AnnouncementsApiDataSource(AnnouncementsService announcementsService) {
-        this.announcementsService = announcementsService;
+    public Single<List<Announcement>> getAllInDayRange(int start, int end) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DATE, -1 * start);
+        long startDate = calendar.getTimeInMillis();
+
+        return getAll(end)
+                .toObservable()
+                .flatMapIterable(announcements -> announcements)
+                .filter(announcement -> {
+                    Date date = new Date(announcement.getCreatedOn());
+                    return date.getTime() > startDate;
+                })
+                .toList();
     }
 
     private Single<List<Announcement>> getAll(int days) {

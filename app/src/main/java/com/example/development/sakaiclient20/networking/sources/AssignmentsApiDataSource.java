@@ -10,6 +10,7 @@ import com.example.development.sakaiclient20.networking.services.ServiceFactory;
 import java.util.List;
 
 import io.reactivex.Observable;
+import io.reactivex.Single;
 
 /**
  * Created by Development on 8/5/18.
@@ -38,18 +39,16 @@ public class AssignmentsApiDataSource implements DataSource<List<Assignment>, Li
     }
 
     @Override
-    public Observable<List<Assignment>> getAll() {
+    public Single<List<Assignment>> getAll() {
         return assignmentsService
                 .getAllAssignments()
-                .map(AssignmentsResponse::getAssignments)
-                .toObservable();
+                .map(AssignmentsResponse::getAssignments);
     }
 
     @Override
-    public Observable<List<Assignment>> getForSite(String siteId) {
+    public Single<List<Assignment>> getForSite(String siteId) {
         return assignmentsService
                 .getSiteAssignments(siteId)
-                .map(AssignmentsResponse::getAssignments)
-                .toObservable();
+                .map(AssignmentsResponse::getAssignments);
     }
 }

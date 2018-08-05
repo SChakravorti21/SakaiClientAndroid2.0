@@ -1,12 +1,13 @@
 package com.example.development.sakaiclient20.networking.sources;
 
 import io.reactivex.Observable;
+import io.reactivex.Single;
 
 /**
  * Created by Shoumyo Chakravorti on 8/5/18.
  */
 
 public interface DataSource<CompleteEntity, SiteEntity> {
-    Observable<CompleteEntity> getAll();
-    Observable<SiteEntity> getForSite(String siteId);
+    Single<CompleteEntity> getAll();
+    Single<SiteEntity> getForSite(String siteId);
 }

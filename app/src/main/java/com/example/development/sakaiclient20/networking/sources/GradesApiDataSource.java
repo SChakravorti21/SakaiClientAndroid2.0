@@ -11,6 +11,7 @@ import com.example.development.sakaiclient20.networking.services.ServiceFactory;
 import java.util.List;
 
 import io.reactivex.Observable;
+import io.reactivex.Single;
 
 /**
  * Created by Development on 8/5/18.
@@ -38,14 +39,14 @@ public class GradesApiDataSource implements DataSource<List<GradeCollection>, Li
     }
 
     @Override
-    public Observable<List<GradeCollection>> getAll() {
+    public Single<List<GradeCollection>> getAll() {
         return gradesService
                 .getAllGrades()
                 .map(GradesResponse::getGradeCollection);
     }
 
     @Override
-    public Observable<List<Grade>> getForSite(String siteId) {
+    public Single<List<Grade>> getForSite(String siteId) {
         return gradesService
                 .getGradeForSite(siteId)
                 .map(GradeCollection::getAssignments);

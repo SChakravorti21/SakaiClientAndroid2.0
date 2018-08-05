@@ -13,6 +13,7 @@ import org.json.JSONObject;
 import java.util.List;
 
 import io.reactivex.Observable;
+import io.reactivex.Single;
 
 /**
  * Created by Shoumyo Chakravorti on 8/5/18.
@@ -40,21 +41,19 @@ public class SitesApiDataSource implements DataSource<List<Course>, Course> {
     }
 
     @Override
-    public Observable<List<Course>> getAll() {
+    public Single<List<Course>> getAll() {
         return sitesService
             .getAllSites()
-            .map(responseBody -> new CoursesBuilder(responseBody).build().getResult())
-            .toObservable();
+            .map(responseBody -> new CoursesBuilder(responseBody).build().getResult());
     }
 
     @Override
-    public Observable<Course> getForSite(String siteId) {
+    public Single<Course> getForSite(String siteId) {
         return sitesService
                 .getSingleSite(siteId)
                 .map(responseBody -> {
                     JSONObject json = new JSONObject(responseBody.string());
                     return new CourseBuilder(json).build().getResult();
-                })
-                .toObservable();
+                });
     }
 }

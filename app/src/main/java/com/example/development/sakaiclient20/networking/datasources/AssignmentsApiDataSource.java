@@ -20,21 +20,21 @@ public class AssignmentsApiDataSource implements DataSource<List<Assignment>, Li
     private static AssignmentsApiDataSource mInstance;
     private AssignmentsService assignmentsService;
 
-    public AssignmentsApiDataSource getInstance(Context context) {
+    public static AssignmentsApiDataSource getInstance(Context context) {
         if(mInstance == null) {
             mInstance = createInstance(context);
         }
         return mInstance;
     }
 
-    private AssignmentsApiDataSource(AssignmentsService assignmentsService) {
-        this.assignmentsService = assignmentsService;
-    }
-
-    private AssignmentsApiDataSource createInstance(Context context) {
+    private static AssignmentsApiDataSource createInstance(Context context) {
         AssignmentsService assignmentsService =
                 ServiceFactory.getService(context, AssignmentsService.class);
         return new AssignmentsApiDataSource(assignmentsService);
+    }
+
+    private AssignmentsApiDataSource(AssignmentsService assignmentsService) {
+        this.assignmentsService = assignmentsService;
     }
 
     @Override

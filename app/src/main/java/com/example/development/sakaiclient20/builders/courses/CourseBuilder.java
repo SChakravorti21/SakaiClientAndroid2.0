@@ -9,8 +9,11 @@ import com.example.development.sakaiclient20.models.custom.Term;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.ResponseBody;
 
 /**
  * Created by Development on 8/5/18.
@@ -18,7 +21,7 @@ import java.util.List;
 
 public class CourseBuilder extends Builder<JSONObject, Course> {
 
-    CourseBuilder(JSONObject jsonObject) {
+    public CourseBuilder(JSONObject jsonObject) {
         super(jsonObject);
     }
 

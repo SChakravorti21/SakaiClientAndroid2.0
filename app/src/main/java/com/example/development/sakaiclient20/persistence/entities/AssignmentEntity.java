@@ -17,14 +17,13 @@ import java.util.Date;
 
 @Entity(tableName = "assignments",
         foreignKeys = @ForeignKey(entity = CourseEntity.class,
-                                    parentColumns = "courseId",
-                                    childColumns = "assignmentId",
+                                    parentColumns = "id",
+                                    childColumns = "courseId",
                                     onDelete = ForeignKey.CASCADE,
                                     onUpdate = ForeignKey.CASCADE))
 @TypeConverters({TermConverter.class})
 public class AssignmentEntity {
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "assignmentId")
     private int id;
 
     // Key assignment details
@@ -54,5 +53,155 @@ public class AssignmentEntity {
     private String gradeScale;
     private String gradeScaleMaxPoints;
 
+    public final int courseId;
+
     //private List<Attachment> attachments = new ArrayList<Attachment>();
+
+    public AssignmentEntity(final int courseId) {
+        this.courseId = courseId;
+    }
+
+    public Term getTerm() {
+        return term;
+    }
+
+    public void setTerm(Term term) {
+        this.term = term;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getSiteId() {
+        return siteId;
+    }
+
+    public void setSiteId(String siteId) {
+        this.siteId = siteId;
+    }
+
+    public String getAssignmentId() {
+        return assignmentId;
+    }
+
+    public void setAssignmentId(String assignmentId) {
+        this.assignmentId = assignmentId;
+    }
+
+    public String getInstructions() {
+        return instructions;
+    }
+
+    public void setInstructions(String instructions) {
+        this.instructions = instructions;
+    }
+
+    public String getEntityURL() {
+        return entityURL;
+    }
+
+    public void setEntityURL(String entityURL) {
+        this.entityURL = entityURL;
+    }
+
+    public String getEntityId() {
+        return entityId;
+    }
+
+    public void setEntityId(String entityId) {
+        this.entityId = entityId;
+    }
+
+    public String getEntityTitle() {
+        return entityTitle;
+    }
+
+    public void setEntityTitle(String entityTitle) {
+        this.entityTitle = entityTitle;
+    }
+
+    public String getEntityReference() {
+        return entityReference;
+    }
+
+    public void setEntityReference(String entityReference) {
+        this.entityReference = entityReference;
+    }
+
+    public String getAssignmentSitePageUrl() {
+        return assignmentSitePageUrl;
+    }
+
+    public void setAssignmentSitePageUrl(String assignmentSitePageUrl) {
+        this.assignmentSitePageUrl = assignmentSitePageUrl;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Date getDueTime() {
+        return dueTime;
+    }
+
+    public void setDueTime(Date dueTime) {
+        this.dueTime = dueTime;
+    }
+
+    public Boolean getAllowResubmission() {
+        return allowResubmission;
+    }
+
+    public void setAllowResubmission(Boolean allowResubmission) {
+        this.allowResubmission = allowResubmission;
+    }
+
+    public String getContext() {
+        return context;
+    }
+
+    public void setContext(String context) {
+        this.context = context;
+    }
+
+    public String getCreator() {
+        return creator;
+    }
+
+    public void setCreator(String creator) {
+        this.creator = creator;
+    }
+
+    public String getAuthorLastModified() {
+        return authorLastModified;
+    }
+
+    public void setAuthorLastModified(String authorLastModified) {
+        this.authorLastModified = authorLastModified;
+    }
+
+    public String getGradeScale() {
+        return gradeScale;
+    }
+
+    public void setGradeScale(String gradeScale) {
+        this.gradeScale = gradeScale;
+    }
+
+    public String getGradeScaleMaxPoints() {
+        return gradeScaleMaxPoints;
+    }
+
+    public void setGradeScaleMaxPoints(String gradeScaleMaxPoints) {
+        this.gradeScaleMaxPoints = gradeScaleMaxPoints;
+    }
 }

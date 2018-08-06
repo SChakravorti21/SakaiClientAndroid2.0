@@ -11,7 +11,6 @@ import android.arch.persistence.room.PrimaryKey;
 @Entity(tableName = "courses")
 public class CourseEntity {
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "courseId")
     private int id;
 
     public final String courseName;

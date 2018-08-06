@@ -11,23 +11,25 @@ import android.arch.persistence.room.PrimaryKey;
 
 @Entity(tableName = "attachments",
         foreignKeys = @ForeignKey(entity = AssignmentEntity.class,
-                                    parentColumns = "assignmentId",
-                                    childColumns = "attachmentId",
+                                    parentColumns = "id",
+                                    childColumns = "assignmentId",
                                     onDelete = ForeignKey.CASCADE,
                                     onUpdate = ForeignKey.CASCADE))
 public class AttachmentEntity {
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "attachmentId")
     private int id;
 
     public final String name;
     public final String url;
+    public final int assignmentId;
 
     public AttachmentEntity(
             String name,
-            String url
+            String url,
+            int assignmentId
     ) {
         this.name = name;
         this.url = url;
+        this.assignmentId = assignmentId;
     }
 }

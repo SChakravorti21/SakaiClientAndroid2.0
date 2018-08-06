@@ -2,8 +2,8 @@ package com.example.development.sakaiclient20.networking.sources;
 
 import android.content.Context;
 
-import com.example.development.sakaiclient20.builders.courses.CourseBuilder;
-import com.example.development.sakaiclient20.builders.courses.CoursesBuilder;
+import com.example.development.sakaiclient20.models.builders.courses.CourseBuilder;
+import com.example.development.sakaiclient20.models.builders.courses.CoursesBuilder;
 import com.example.development.sakaiclient20.models.custom.Course;
 import com.example.development.sakaiclient20.networking.services.ServiceFactory;
 import com.example.development.sakaiclient20.networking.services.SitesService;

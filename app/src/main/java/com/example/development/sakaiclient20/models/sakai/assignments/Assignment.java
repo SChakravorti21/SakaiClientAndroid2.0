@@ -10,8 +10,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Assignment implements Serializable
-{
+public class Assignment implements Serializable {
 
     @SerializedName("attachments")
     @Expose
@@ -19,12 +18,6 @@ public class Assignment implements Serializable
     @SerializedName("authorLastModified")
     @Expose
     private String authorLastModified;
-    @SerializedName("authors")
-    @Expose
-    private List<Object> authors = new ArrayList<Object>();
-    @SerializedName("closeTime")
-    @Expose
-    private CloseTime closeTime;
     @SerializedName("closeTimeString")
     @Expose
     private String closeTimeString;
@@ -61,15 +54,9 @@ public class Assignment implements Serializable
     @SerializedName("modelAnswerText")
     @Expose
     private Object modelAnswerText;
-    @SerializedName("openTimeString")
-    @Expose
-    private String openTimeString;
     @SerializedName("status")
     @Expose
     private String status;
-    @SerializedName("submissionType")
-    @Expose
-    private String submissionType;
     @SerializedName("title")
     @Expose
     private String title;
@@ -94,9 +81,6 @@ public class Assignment implements Serializable
     @SerializedName("term")
     @Expose
     private Term term;
-    @SerializedName("currentGrade")
-    @Expose
-    private String currentGrade;
     @SerializedName("assignmentSitePageUrl")
     @Expose
     private String assignmentSitePageUrl;
@@ -117,10 +101,6 @@ public class Assignment implements Serializable
 
     public String getAuthorLastModified() {
         return authorLastModified;
-    }
-
-    public CloseTime getCloseTime() {
-        return closeTime;
     }
 
     public String getCloseTimeString() {
@@ -179,16 +159,8 @@ public class Assignment implements Serializable
         return modelAnswerText;
     }
 
-    public String getOpenTimeString() {
-        return openTimeString;
-    }
-
     public String getStatus() {
         return status;
-    }
-
-    public String getSubmissionType() {
-        return submissionType;
     }
 
     public String getTitle() {
@@ -219,14 +191,6 @@ public class Assignment implements Serializable
         return entityReference;
     }
 
-    public String getCurrentGrade() {
-        return currentGrade;
-    }
-
-    public void setCurrentGrade(String currentGrade) {
-        this.currentGrade = currentGrade;
-    }
-
     public String getAssignmentSitePageUrl() {
         return assignmentSitePageUrl;
     }
@@ -240,8 +204,6 @@ public class Assignment implements Serializable
         return new ToStringBuilder(this)
                 .append("attachments", attachments)
                 .append("authorLastModified", authorLastModified)
-                .append("authors", authors)
-                .append("closeTime", closeTime)
                 .append("closeTimeString", closeTimeString)
                 .append("context", context)
                 .append("creator", creator)
@@ -254,9 +216,7 @@ public class Assignment implements Serializable
                 .append("id", id)
                 .append("instructions", instructions)
                 .append("modelAnswerText", modelAnswerText)
-                .append("openTimeString", openTimeString)
                 .append("status", status)
-                .append("submissionType", submissionType)
                 .append("title", title)
                 .append("allowResubmission", allowResubmission)
                 .append("entityURL", entityURL)

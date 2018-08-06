@@ -1,5 +1,6 @@
 package com.example.development.sakaiclient20.persistence.entities;
 
+import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
@@ -10,6 +11,7 @@ import android.arch.persistence.room.PrimaryKey;
 @Entity(tableName = "courses")
 public class CourseEntity {
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "courseId")
     private int id;
 
     public final String courseName;

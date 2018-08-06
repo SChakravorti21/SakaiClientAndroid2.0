@@ -8,10 +8,13 @@ public class Term implements Comparable<Term>, Serializable{
 
     private int year;
     private int termInt;
+    private String termEid;
     private String termString;
 
-    public Term(String term_eid) {
-        String[] splitTerm = term_eid.split(":");
+    public Term(String termEid) {
+        this.termEid = termEid;
+
+        String[] splitTerm = termEid.split(":");
         this.year = Integer.parseInt(splitTerm[0]);
         this.termInt = Integer.parseInt(splitTerm[1]);
 
@@ -59,11 +62,15 @@ public class Term implements Comparable<Term>, Serializable{
     }
 
     public int getTermInt() {
-        return termInt;
+        return this.termInt;
+    }
+
+    public String getTermEid() {
+        return this.termEid;
     }
 
     public String getTermString() {
-        return termString;
+        return this.termString;
     }
 
     @Override

@@ -1,5 +1,6 @@
-package com.example.development.sakaiclient20.builders;
+package com.example.development.sakaiclient20.models.builders;
 
+import com.example.development.sakaiclient20.common.Builder;
 import com.example.development.sakaiclient20.models.custom.SitePage;
 
 import org.json.JSONArray;
@@ -13,7 +14,7 @@ import java.util.List;
  * Created by Development on 8/5/18.
  */
 
-public class SitePagesBuilder extends AbstractBuilder<JSONArray, List<SitePage>> {
+public class SitePagesBuilder extends Builder<JSONArray, List<SitePage>> {
 
     private String assignmentSitePageUrl;
 
@@ -22,7 +23,7 @@ public class SitePagesBuilder extends AbstractBuilder<JSONArray, List<SitePage>>
     }
 
     @Override
-    public AbstractBuilder<JSONArray, List<SitePage>> build() throws JSONException {
+    public Builder<JSONArray, List<SitePage>> build() throws JSONException {
         result = new ArrayList<>();
 
         for (int index = 0; index < source.length(); index++) {

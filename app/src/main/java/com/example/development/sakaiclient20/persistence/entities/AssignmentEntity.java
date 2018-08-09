@@ -3,13 +3,16 @@ package com.example.development.sakaiclient20.persistence.entities;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.arch.persistence.room.TypeConverters;
 
 import com.example.development.sakaiclient20.models.custom.Term;
 import com.example.development.sakaiclient20.persistence.converters.TermConverter;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Development on 8/5/18.
@@ -55,7 +58,8 @@ public class AssignmentEntity {
 
     public final int courseId;
 
-    //private List<Attachment> attachments = new ArrayList<Attachment>();
+    @Ignore
+    private List<AttachmentEntity> attachments = new ArrayList<>();
 
     public AssignmentEntity(final int courseId) {
         this.courseId = courseId;
@@ -203,5 +207,9 @@ public class AssignmentEntity {
 
     public void setGradeScaleMaxPoints(String gradeScaleMaxPoints) {
         this.gradeScaleMaxPoints = gradeScaleMaxPoints;
+    }
+
+    public void addAttachment(AttachmentEntity attachmentEntity) {
+        this.attachments.add(attachmentEntity);
     }
 }

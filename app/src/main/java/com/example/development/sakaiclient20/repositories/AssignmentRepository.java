@@ -1,22 +1,19 @@
 package com.example.development.sakaiclient20.repositories;
 
-import android.annotation.SuppressLint;
+import android.os.AsyncTask;
 
-import com.example.development.sakaiclient20.models.interfaces.IAssignment;
-import com.example.development.sakaiclient20.models.interfaces.IAttachment;
+import com.example.development.sakaiclient20.common.converters.AssignmentConverter;
 import com.example.development.sakaiclient20.models.sakai.assignments.Assignment;
 import com.example.development.sakaiclient20.models.sakai.assignments.AssignmentsResponse;
 import com.example.development.sakaiclient20.networking.services.AssignmentsService;
 import com.example.development.sakaiclient20.persistence.access.AssignmentDao;
 import com.example.development.sakaiclient20.persistence.composites.AssignmentWithAttachments;
 import com.example.development.sakaiclient20.persistence.entities.AssignmentEntity;
-import com.example.development.sakaiclient20.persistence.entities.AttachmentEntity;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-import io.reactivex.Observable;
 import io.reactivex.Single;
 
 /**
@@ -33,29 +30,71 @@ public class AssignmentRepository {
         this.assignmentsService = service;
     }
 
-    public Single<List<? extends IAssignment>> getAssignmentsForSite(String siteId, boolean refresh) {
+    public Single<List<Assignment>> getAssignmentsForSite(String siteId, boolean refresh) {
         if(refresh) {
-            return getAllAssignmentForSiteApi(siteId)
-                    .map(assignments -> {
-                        return (List<IAssignment>)(List)assignments;
-                    });
+             return getSiteAssignmentsApi(siteId);
         } else {
-            return getAssignmentsForSiteDb(siteId)
-                    .map(assignmentsWithAttachments -> {
-                        return (List<IAssignment>)(List) assignmentsWithAttachments;
-                    });
+             return getSiteAssignmentsDb(siteId);
         }
     }
 
-    private Single<List<AssignmentWithAttachments>> getAssignmentsForSiteDb(String siteId) {
+    private Single<List<Assignment>> getSiteAssignmentsDb(String siteId) {
         return assignmentDao
                 .getAssignmentsForSite(siteId)
-                .firstOrError();
+                .firstOrError()
+                .map(assignmentEntities -> {
+                    List<Assignment> assignmentDTOs = new ArrayList<>(assignmentEntities.size());
+                    AssignmentConverter assignmentConverter = new AssignmentConverter();
+
+                    for(AssignmentWithAttachments entity : assignmentEntities) {
+                        AssignmentEntity assignmentEntity = entity.assignment;
+                        assignmentEntity.attachments = entity.attachments;
+
+                        assignmentDTOs.add(assignmentConverter.fromEntity(assignmentEntity));
+                    }
+
+                    return assignmentDTOs;
+                });
     }
 
-    private Single<List<Assignment>> getAllAssignmentForSiteApi(String siteId) {
+    private Single<List<Assignment>> getSiteAssignmentsApi(String siteId) {
         return assignmentsService.getSiteAssignments(siteId)
-                .map(AssignmentsResponse::getAssignments);
+                .map(response -> {
+                    // TODO: Where should this be done?
+                    List<Assignment> assignments = response.getAssignments();
+                    InsertAssignmentsTask task = new InsertAssignmentsTask(assignmentDao);
+
+                    // Using generic varargs can supposedly pollute the heap,
+                    // so convert to array before passing as task argument
+                    task.execute(assignments.toArray(new Assignment[assignments.size()]));
+
+                    return assignments;
+                });
+    }
+
+
+    private static class InsertAssignmentsTask extends AsyncTask<Assignment, Void, Void> {
+
+        private WeakReference<AssignmentDao> assignmentDao;
+
+        private InsertAssignmentsTask(AssignmentDao assignmentDao) {
+            this.assignmentDao = new WeakReference<>(assignmentDao);
+        }
+
+        @Override
+        protected Void doInBackground(Assignment... assignments) {
+            AssignmentConverter converter = new AssignmentConverter();
+            AssignmentEntity[] assignmentEntities = new AssignmentEntity[assignments.length];
+            for(int index = 0; index < assignments.length; index++) {
+                assignmentEntities[index] = converter.fromDTO(assignments[index]);
+            }
+
+            if(assignmentDao == null || assignmentDao.get() == null)
+                return null;
+
+            assignmentDao.get().insert(assignmentEntities);
+            return null;
+        }
     }
 
 }

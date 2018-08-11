@@ -1,6 +1,5 @@
 package com.example.development.sakaiclient20.persistence.entities;
 
-import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Ignore;
@@ -8,6 +7,8 @@ import android.arch.persistence.room.PrimaryKey;
 import android.arch.persistence.room.TypeConverters;
 
 import com.example.development.sakaiclient20.models.custom.Term;
+import com.example.development.sakaiclient20.models.interfaces.IAssignment;
+import com.example.development.sakaiclient20.models.interfaces.IAttachment;
 import com.example.development.sakaiclient20.persistence.converters.TermConverter;
 
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ import java.util.List;
                                     onDelete = ForeignKey.CASCADE,
                                     onUpdate = ForeignKey.CASCADE))
 @TypeConverters({TermConverter.class})
-public class AssignmentEntity {
+public class AssignmentEntity implements IAssignment {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
@@ -209,7 +210,7 @@ public class AssignmentEntity {
         this.gradeScaleMaxPoints = gradeScaleMaxPoints;
     }
 
-    public void addAttachment(AttachmentEntity attachmentEntity) {
-        this.attachments.add(attachmentEntity);
+    public List<? extends IAttachment> getAttachments() {
+        return this.attachments;
     }
 }

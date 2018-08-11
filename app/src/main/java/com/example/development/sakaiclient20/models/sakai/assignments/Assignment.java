@@ -1,6 +1,8 @@
 package com.example.development.sakaiclient20.models.sakai.assignments;
 
 import com.example.development.sakaiclient20.models.custom.Term;
+import com.example.development.sakaiclient20.models.interfaces.IAssignment;
+import com.example.development.sakaiclient20.models.interfaces.IAttachment;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -8,9 +10,10 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-public class Assignment implements Serializable {
+public class Assignment implements IAssignment, Serializable {
 
     @SerializedName("attachments")
     @Expose
@@ -95,7 +98,7 @@ public class Assignment implements Serializable {
         this.term = term;
     }
 
-    public List<Attachment> getAttachments() {
+    public List<? extends IAttachment> getAttachments() {
         return attachments;
     }
 
@@ -119,8 +122,8 @@ public class Assignment implements Serializable {
         return creator;
     }
 
-    public DueTime getDueTime() {
-        return dueTime;
+    public Date getDueTime() {
+        return new Date(dueTime.getTime());
     }
 
     public String getDueTimeString() {
@@ -143,7 +146,7 @@ public class Assignment implements Serializable {
         return gradebookItemName;
     }
 
-    public String getId() {
+    public String getAssignmentId() {
         return id;
     }
 

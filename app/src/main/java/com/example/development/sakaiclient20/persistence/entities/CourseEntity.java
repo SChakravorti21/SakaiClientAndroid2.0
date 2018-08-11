@@ -9,11 +9,11 @@ import android.arch.persistence.room.PrimaryKey;
 
 @Entity(tableName = "courses")
 public class CourseEntity {
-    @PrimaryKey(autoGenerate = true)
-    private int id;
+
+    @PrimaryKey
+    public final String siteId;
 
     public final String courseName;
-    public final String siteId;
     public final String title;
     public final String description;
     public final String term;
@@ -22,8 +22,8 @@ public class CourseEntity {
     public final int subjectCode;
 
     public CourseEntity(
-            String courseName,
             String siteId,
+            String courseName,
             String title,
             String description,
             String term,
@@ -31,8 +31,8 @@ public class CourseEntity {
             String assignmentSitePageUrl,
             int subjectCode
     ) {
-        this.courseName = courseName;
         this.siteId = siteId;
+        this.courseName = courseName;
         this.title = title;
         this.description = description;
         this.term = term;

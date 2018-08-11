@@ -1,7 +1,7 @@
-package com.example.development.sakaiclient20.models.builders.courses;
+package com.example.development.sakaiclient20.common.builders.courses;
 
-import com.example.development.sakaiclient20.common.Builder;
-import com.example.development.sakaiclient20.models.builders.SitePagesBuilder;
+import com.example.development.sakaiclient20.common.builders.AbstractBuilder;
+import com.example.development.sakaiclient20.common.builders.SitePagesBuilder;
 import com.example.development.sakaiclient20.models.custom.Course;
 import com.example.development.sakaiclient20.models.custom.SitePage;
 import com.example.development.sakaiclient20.models.custom.Term;
@@ -16,7 +16,7 @@ import java.util.List;
  * Created by Development on 8/5/18.
  */
 
-public class CourseBuilder extends Builder<JSONObject, Course> {
+public class CourseBuilder extends AbstractBuilder<JSONObject, Course> {
 
     public CourseBuilder(JSONObject jsonObject) {
         super(jsonObject);

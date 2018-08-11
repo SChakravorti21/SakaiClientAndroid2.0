@@ -1,6 +1,6 @@
-package com.example.development.sakaiclient20.models.builders.courses;
+package com.example.development.sakaiclient20.common.builders.courses;
 
-import com.example.development.sakaiclient20.common.Builder;
+import com.example.development.sakaiclient20.common.builders.AbstractBuilder;
 import com.example.development.sakaiclient20.models.custom.Course;
 
 import org.json.JSONArray;
@@ -17,7 +17,7 @@ import okhttp3.ResponseBody;
  * Created by Development on 8/5/18.
  */
 
-public class CoursesBuilder extends Builder<ResponseBody, List<Course>> {
+public class CoursesBuilder extends AbstractBuilder<ResponseBody, List<Course>> {
 
     public CoursesBuilder(ResponseBody apiResponse) {
         super(apiResponse);

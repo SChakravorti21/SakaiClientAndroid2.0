@@ -2,6 +2,7 @@ package com.example.development.sakaiclient20.persistence.access;
 
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
+import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Update;
 
 /**
@@ -10,10 +11,10 @@ import android.arch.persistence.room.Update;
 
 public interface BaseDao<TEntity> {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(TEntity... entities);
 
-    @Update
+    @Update(onConflict = OnConflictStrategy.REPLACE)
     void update(TEntity... entities);
 
     @Delete

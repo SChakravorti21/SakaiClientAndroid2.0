@@ -2,6 +2,7 @@ package com.example.development.sakaiclient20.persistence.entities;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 
 /**
@@ -13,7 +14,8 @@ import android.arch.persistence.room.PrimaryKey;
                                     parentColumns = "assignmentId",
                                     childColumns = "assignmentId",
                                     onDelete = ForeignKey.CASCADE,
-                                    onUpdate = ForeignKey.CASCADE))
+                                    onUpdate = ForeignKey.CASCADE),
+        indices = @Index(value = "assignmentId"))
 public class AttachmentEntity {
     @PrimaryKey(autoGenerate = true)
     public int id;

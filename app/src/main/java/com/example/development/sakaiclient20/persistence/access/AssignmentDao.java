@@ -3,7 +3,7 @@ package com.example.development.sakaiclient20.persistence.access;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Transaction;
 
-import com.example.development.sakaiclient20.persistence.composites.AssignmentWithAttachments;
+import com.example.development.sakaiclient20.persistence.composites.CompositeAssignment;
 import com.example.development.sakaiclient20.persistence.entities.AssignmentEntity;
 
 import java.util.List;
@@ -24,12 +24,12 @@ public abstract class AssignmentDao implements BaseDao<AssignmentEntity> {
 
     @Transaction
     @Query("SELECT * FROM assignments ORDER BY dueTime")
-    public abstract Flowable<List<AssignmentWithAttachments>> getAllAssignments();
+    public abstract Flowable<List<CompositeAssignment>> getAllAssignments();
 
     @Transaction //Wrap in transaction since Room technically performs multiple transactions
     @Query("SELECT * FROM assignments WHERE siteId = :siteId")
-    public abstract Flowable<List<AssignmentWithAttachments>> getAssignmentsForSite(String siteId);
+    public abstract Flowable<List<CompositeAssignment>> getAssignmentsForSite(String siteId);
 
-    @Query("DELETE FROM assignments WHERE courseId = :siteId")
+    @Query("DELETE FROM assignments WHERE siteId = :siteId")
     public abstract void deleteAllForSite(int siteId);
 }

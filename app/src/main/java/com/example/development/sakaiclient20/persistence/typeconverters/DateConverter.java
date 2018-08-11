@@ -1,4 +1,4 @@
-package com.example.development.sakaiclient20.persistence.converters;
+package com.example.development.sakaiclient20.persistence.typeconverters;
 
 import android.arch.persistence.room.TypeConverter;
 

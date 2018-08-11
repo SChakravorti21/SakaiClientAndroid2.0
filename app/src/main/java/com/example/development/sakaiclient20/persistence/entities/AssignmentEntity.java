@@ -3,11 +3,12 @@ package com.example.development.sakaiclient20.persistence.entities;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.arch.persistence.room.TypeConverters;
 
 import com.example.development.sakaiclient20.models.custom.Term;
-import com.example.development.sakaiclient20.persistence.converters.TermConverter;
+import com.example.development.sakaiclient20.persistence.typeconverters.TermConverter;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,8 +23,8 @@ import java.util.List;
                                     parentColumns = "siteId",
                                     childColumns = "context",
                                     onDelete = ForeignKey.CASCADE,
-                                    onUpdate = ForeignKey.CASCADE))
-@TypeConverters({TermConverter.class})
+                                    onUpdate = ForeignKey.CASCADE),
+        indices = @Index(value = "context"))
 public class AssignmentEntity {
 
     @PrimaryKey

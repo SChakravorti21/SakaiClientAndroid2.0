@@ -17,7 +17,7 @@ public class CompositeCourse {
     public final CourseEntity course;
 
     @Relation(parentColumn = "id", entityColumn = "courseId")
-    public List<AssignmentWithAttachments> assignments;
+    public List<CompositeAssignment> assignments;
 
     @Relation(parentColumn = "id", entityColumn = "courseId")
     public List<GradeEntity> grades;

@@ -1,6 +1,5 @@
 package com.example.development.sakaiclient20.models.sakai.assignments;
 
-import com.example.development.sakaiclient20.models.interfaces.IAttachment;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -8,7 +7,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.io.Serializable;
 
-public class Attachment implements IAttachment, Serializable
+public class Attachment implements Serializable
 {
 
     @SerializedName("name")
@@ -29,6 +28,10 @@ public class Attachment implements IAttachment, Serializable
 
     public String getUrl() {
         return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     @Override

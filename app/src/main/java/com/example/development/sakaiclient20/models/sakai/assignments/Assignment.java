@@ -1,229 +1,93 @@
 package com.example.development.sakaiclient20.models.sakai.assignments;
 
 import com.example.development.sakaiclient20.models.custom.Term;
-import com.example.development.sakaiclient20.models.interfaces.IAssignment;
-import com.example.development.sakaiclient20.models.interfaces.IAttachment;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
-import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Assignment implements IAssignment, Serializable {
+public class Assignment implements Serializable {
 
     @SerializedName("attachments")
-    @Expose
-    private List<Attachment> attachments = new ArrayList<Attachment>();
+    public List<Attachment> attachments = new ArrayList<Attachment>();
+
     @SerializedName("authorLastModified")
-    @Expose
-    private String authorLastModified;
+    public String authorLastModified;
+
     @SerializedName("closeTimeString")
-    @Expose
-    private String closeTimeString;
+    public String closeTimeString;
+
     @SerializedName("context")
-    @Expose
-    private String context;
+    public String context;
+
     @SerializedName("creator")
-    @Expose
-    private String creator;
+    public String creator;
+
     @SerializedName("dueTime")
-    @Expose
-    private DueTime dueTime;
+    public DueTime dueTime;
+
     @SerializedName("dueTimeString")
-    @Expose
-    private String dueTimeString;
+    public String dueTimeString;
+
     @SerializedName("gradeScale")
-    @Expose
-    private String gradeScale;
+    public String gradeScale;
+
     @SerializedName("gradeScaleMaxPoints")
-    @Expose
-    private String gradeScaleMaxPoints;
-    @SerializedName("gradebookItemId")
-    @Expose
-    private Object gradebookItemId;
-    @SerializedName("gradebookItemName")
-    @Expose
-    private Object gradebookItemName;
+    public String gradeScaleMaxPoints;
+
     @SerializedName("id")
-    @Expose
-    private String id;
+    public String assignmentId;
+
     @SerializedName("instructions")
-    @Expose
-    private String instructions;
+    public String instructions;
+
     @SerializedName("modelAnswerText")
-    @Expose
-    private Object modelAnswerText;
+    public Object modelAnswerText;
+
     @SerializedName("status")
-    @Expose
-    private String status;
+    public String status;
+
     @SerializedName("title")
-    @Expose
-    private String title;
+    public String title;
+
     @SerializedName("allowResubmission")
-    @Expose
-    private Boolean allowResubmission;
+    public Boolean allowResubmission;
+
     @SerializedName("entityURL")
-    @Expose
-    private String entityURL;
+    public String entityURL;
+
     @SerializedName("entityId")
-    @Expose
-    private String entityId;
+    public String entityId;
+
     @SerializedName("entityTitle")
-    @Expose
-    private String entityTitle;
+    public String entityTitle;
+
     @SerializedName("entityReference")
-    @Expose
-    private String entityReference;
+    public String entityReference;
 
     // Term does not come in the response, but it is used internally
     // for sorting by date
+
     @SerializedName("term")
-    @Expose
-    private Term term;
+    public Term term;
+
     @SerializedName("assignmentSitePageUrl")
-    @Expose
-    private String assignmentSitePageUrl;
+    public String assignmentSitePageUrl;
 
-    private final static long serialVersionUID = 835944991348229740L;
-
-    public Term getTerm() {
-        return this.term;
-    }
-
-    public void setTerm(Term term) {
-        this.term = term;
-    }
-
-    public List<? extends IAttachment> getAttachments() {
-        return attachments;
-    }
-
-    public String getAuthorLastModified() {
-        return authorLastModified;
-    }
-
-    public String getCloseTimeString() {
-        return closeTimeString;
-    }
-
-    public String getContext() {
-        return context;
-    }
-
-    public void setContext(String context) {
-        this.context = context;
-    }
-
-    public String getCreator() {
-        return creator;
-    }
+    public final static long serialVersionUID = 835944991348229740L;
 
     public Date getDueTime() {
         return new Date(dueTime.getTime());
     }
 
-    public String getDueTimeString() {
-        return dueTimeString;
-    }
+    public void setDueTime(Date time) {
+        DueTime dueTime = new DueTime();
+        dueTime.setTime(time.getTime());
+        dueTime.setDisplay(time.toString());
 
-    public String getGradeScale() {
-        return gradeScale;
-    }
-
-    public String getGradeScaleMaxPoints() {
-        return gradeScaleMaxPoints;
-    }
-
-    public Object getGradebookItemId() {
-        return gradebookItemId;
-    }
-
-    public Object getGradebookItemName() {
-        return gradebookItemName;
-    }
-
-    public String getAssignmentId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getInstructions() {
-        return instructions;
-    }
-
-    public Object getModelAnswerText() {
-        return modelAnswerText;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public Boolean getAllowResubmission() {
-        return allowResubmission;
-    }
-
-    public String getEntityURL() {
-        return entityURL;
-    }
-
-    public String getEntityId() {
-        return entityId;
-    }
-
-    public String getEntityTitle() {
-        return entityTitle;
-    }
-
-    public String getEntityReference() {
-        return entityReference;
-    }
-
-    public String getAssignmentSitePageUrl() {
-        return assignmentSitePageUrl;
-    }
-
-    public void setAssignmentSitePageUrl(String assignmentSitePageUrl) {
-        this.assignmentSitePageUrl = assignmentSitePageUrl;
-    }
-
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this)
-                .append("attachments", attachments)
-                .append("authorLastModified", authorLastModified)
-                .append("closeTimeString", closeTimeString)
-                .append("context", context)
-                .append("creator", creator)
-                .append("dueTime", dueTime)
-                .append("dueTimeString", dueTimeString)
-                .append("gradeScale", gradeScale)
-                .append("gradeScaleMaxPoints", gradeScaleMaxPoints)
-                .append("gradebookItemId", gradebookItemId)
-                .append("gradebookItemName", gradebookItemName)
-                .append("id", id)
-                .append("instructions", instructions)
-                .append("modelAnswerText", modelAnswerText)
-                .append("status", status)
-                .append("title", title)
-                .append("allowResubmission", allowResubmission)
-                .append("entityURL", entityURL)
-                .append("entityId", entityId)
-                .append("entityTitle", entityTitle).toString();
+        this.dueTime = dueTime;
     }
 }

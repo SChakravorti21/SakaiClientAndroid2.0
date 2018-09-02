@@ -17,14 +17,12 @@ import okhttp3.Response;
 
 public class HeaderInterceptor implements Interceptor {
 
-    private final Context context;
     private final String cookieUrl;
 
     private final String cookies;
 
-    public HeaderInterceptor(Context ctx, String url) {
+    public HeaderInterceptor(String url) {
         cookieUrl = url;
-        context = ctx;
         cookies = getCookies();
     }
 

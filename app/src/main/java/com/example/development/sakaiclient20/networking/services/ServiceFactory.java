@@ -24,7 +24,7 @@ public class ServiceFactory {
 
         // Create the custom OkHttpClient with the interceptor to inject
         // cookies into every request
-        HeaderInterceptor interceptor = new HeaderInterceptor(context, cookieUrl);
+        HeaderInterceptor interceptor = new HeaderInterceptor(cookieUrl);
         OkHttpClient httpClient = new OkHttpClient.Builder()
                 .addInterceptor(interceptor)
                 .build();

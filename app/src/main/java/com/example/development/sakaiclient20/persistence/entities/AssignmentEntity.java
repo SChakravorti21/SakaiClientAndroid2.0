@@ -45,7 +45,7 @@ public class AssignmentEntity {
     // Information regarding the submission of assignment
     public String status;
     public Date dueTime;
-    public Boolean allowResubmission;
+    public boolean allowResubmission;
 
     // Information about who created the assignment
     public String creator;
@@ -57,7 +57,5 @@ public class AssignmentEntity {
 
     @Ignore
     public List<AttachmentEntity> attachments = new ArrayList<>();
-
-    public AssignmentEntity() { }
 
 }

@@ -3,7 +3,11 @@ package com.example.development.sakaiclient20.networking.services;
 import android.content.Context;
 
 import com.example.development.sakaiclient20.R;
+import com.example.development.sakaiclient20.networking.deserializers.AssignmentDeserializer;
 import com.example.development.sakaiclient20.networking.utilities.HeaderInterceptor;
+import com.example.development.sakaiclient20.persistence.entities.Assignment;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import okhttp3.OkHttpClient;
@@ -34,10 +38,18 @@ public class ServiceFactory {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(getAssignmentDeserializer()))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(httpClient)
                 .build();
 
         return retrofit.create(serviceClass);
+    }
+
+    private static Gson getAssignmentDeserializer() {
+        return new GsonBuilder()
+                .setLenient()
+                .registerTypeAdapter(Assignment.class, new AssignmentDeserializer())
+                .create();
     }
 }

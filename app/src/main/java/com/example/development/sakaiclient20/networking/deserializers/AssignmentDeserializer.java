@@ -1,6 +1,6 @@
 package com.example.development.sakaiclient20.networking.deserializers;
 
-import com.example.development.sakaiclient20.persistence.entities.AssignmentEntity;
+import com.example.development.sakaiclient20.persistence.entities.Assignment;
 import com.example.development.sakaiclient20.persistence.entities.AttachmentEntity;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
@@ -12,12 +12,12 @@ import com.google.gson.JsonParseException;
 import java.lang.reflect.Type;
 import java.util.Date;
 
-public class AssignmentDeserializer implements JsonDeserializer<AssignmentEntity> {
+public class AssignmentDeserializer implements JsonDeserializer<Assignment> {
 
     @Override
-    public AssignmentEntity deserialize(JsonElement raw,
-                                        Type typeOfT,
-                                        JsonDeserializationContext context)
+    public Assignment deserialize(JsonElement raw,
+                                  Type typeOfT,
+                                  JsonDeserializationContext context)
             throws JsonParseException {
 
         JsonObject json = raw.getAsJsonObject();
@@ -25,7 +25,7 @@ public class AssignmentDeserializer implements JsonDeserializer<AssignmentEntity
         // TODO: Once the course to term map is created, set the assignment's
         // term
 
-        AssignmentEntity assignment = new AssignmentEntity();
+        Assignment assignment = new Assignment();
         assignment.assignmentId = json.get("entityId").getAsString();
         assignment.title = json.get("title").getAsString();
         assignment.context = json.get("context").getAsString();

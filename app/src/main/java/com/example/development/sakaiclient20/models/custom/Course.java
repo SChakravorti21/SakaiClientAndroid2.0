@@ -1,7 +1,7 @@
 package com.example.development.sakaiclient20.models.custom;
 
-import com.example.development.sakaiclient20.models.sakai.assignments.Assignment;
 import com.example.development.sakaiclient20.models.sakai.gradebook.Grade;
+import com.example.development.sakaiclient20.persistence.entities.Assignment;
 
 import java.io.IOException;
 import java.io.Serializable;

@@ -10,7 +10,7 @@ import android.arch.persistence.room.PrimaryKey;
  */
 
 @Entity(tableName = "attachments",
-        foreignKeys = @ForeignKey(entity = AssignmentEntity.class,
+        foreignKeys = @ForeignKey(entity = Assignment.class,
                                     parentColumns = "assignmentId",
                                     childColumns = "assignmentId",
                                     onDelete = ForeignKey.CASCADE,

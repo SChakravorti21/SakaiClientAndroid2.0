@@ -25,7 +25,7 @@ import java.util.List;
                                     onDelete = ForeignKey.CASCADE,
                                     onUpdate = ForeignKey.CASCADE),
         indices = @Index(value = "context"))
-public class AssignmentEntity {
+public class Assignment {
 
     @PrimaryKey
     public String assignmentId;
@@ -38,7 +38,6 @@ public class AssignmentEntity {
 
     // Information that allows Sakai to keep track of the assignment
     public String entityURL;
-    public String entityId;
     public String entityTitle;
     public String entityReference;
 

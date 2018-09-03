@@ -5,10 +5,8 @@ import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
-import android.arch.persistence.room.TypeConverters;
 
 import com.example.development.sakaiclient20.models.custom.Term;
-import com.example.development.sakaiclient20.persistence.typeconverters.TermConverter;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,19 +19,21 @@ import java.util.List;
 @Entity(tableName = "assignments",
         foreignKeys = @ForeignKey(entity = CourseEntity.class,
                                     parentColumns = "siteId",
-                                    childColumns = "context",
+                                    childColumns = "siteId",
                                     onDelete = ForeignKey.CASCADE,
                                     onUpdate = ForeignKey.CASCADE),
-        indices = @Index(value = "context"))
+        indices = { @Index(value = "siteId"),
+                    @Index(value = "assignmentId")
+        })
 public class Assignment {
 
     @PrimaryKey
-    public String assignmentId;
+    public final String assignmentId;
 
     // Key assignment details
     public Term term;
     public String title;
-    public String context;
+    public String siteId;
     public String instructions;
 
     // Information that allows Sakai to keep track of the assignment
@@ -55,6 +55,10 @@ public class Assignment {
     public String gradeScaleMaxPoints;
 
     @Ignore
-    public List<AttachmentEntity> attachments = new ArrayList<>();
+    public List<Attachment> attachments = new ArrayList<>();
+
+    public Assignment(String assignmentId) {
+        this.assignmentId = assignmentId;
+    }
 
 }

@@ -4,8 +4,10 @@ import android.content.Context;
 
 import com.example.development.sakaiclient20.R;
 import com.example.development.sakaiclient20.networking.deserializers.AssignmentDeserializer;
+import com.example.development.sakaiclient20.networking.deserializers.GradeDeserializer;
 import com.example.development.sakaiclient20.networking.utilities.HeaderInterceptor;
 import com.example.development.sakaiclient20.persistence.entities.Assignment;
+import com.example.development.sakaiclient20.persistence.entities.Grade;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -35,21 +37,32 @@ public class ServiceFactory {
 
         // The Retrofit instance allows us to construct our own services
         // that will make network requests
-        Retrofit retrofit = new Retrofit.Builder()
+        Retrofit.Builder retrofitBuilder = new Retrofit.Builder()
                 .baseUrl(baseUrl)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create(getAssignmentDeserializer()))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .client(httpClient)
-                .build();
+                .client(httpClient);
+        addConvertFactories(retrofitBuilder);
 
-        return retrofit.create(serviceClass);
+        return retrofitBuilder.build().create(serviceClass);
+    }
+
+    private static void addConvertFactories(Retrofit.Builder builder) {
+        builder.addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(getAssignmentDeserializer()))
+                .addConverterFactory(GsonConverterFactory.create(getGradeDeserializer()));
     }
 
     private static Gson getAssignmentDeserializer() {
         return new GsonBuilder()
                 .setLenient()
                 .registerTypeAdapter(Assignment.class, new AssignmentDeserializer())
+                .create();
+    }
+
+    private static Gson getGradeDeserializer() {
+        return new GsonBuilder()
+                .setLenient()
+                .registerTypeAdapter(Grade.class, new GradeDeserializer())
                 .create();
     }
 }

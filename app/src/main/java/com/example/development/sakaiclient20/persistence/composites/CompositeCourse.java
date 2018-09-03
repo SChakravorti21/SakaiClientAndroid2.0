@@ -4,7 +4,7 @@ import android.arch.persistence.room.Embedded;
 import android.arch.persistence.room.Relation;
 
 import com.example.development.sakaiclient20.persistence.entities.CourseEntity;
-import com.example.development.sakaiclient20.persistence.entities.GradeEntity;
+import com.example.development.sakaiclient20.persistence.entities.Grade;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ public class CompositeCourse {
     public List<CompositeAssignment> assignments;
 
     @Relation(parentColumn = "id", entityColumn = "courseId")
-    public List<GradeEntity> grades;
+    public List<Grade> grades;
 
     public CompositeCourse(CourseEntity course) {
         this.course = course;

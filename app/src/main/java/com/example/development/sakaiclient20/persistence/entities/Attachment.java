@@ -16,7 +16,7 @@ import android.arch.persistence.room.PrimaryKey;
                                     onDelete = ForeignKey.CASCADE,
                                     onUpdate = ForeignKey.CASCADE),
         indices = @Index(value = "assignmentId"))
-public class AttachmentEntity {
+public class Attachment {
     @PrimaryKey(autoGenerate = true)
     public int id;
 
@@ -24,5 +24,5 @@ public class AttachmentEntity {
     public String url;
     public String assignmentId;
 
-    public AttachmentEntity() { }
+    public Attachment() { }
 }

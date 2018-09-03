@@ -1,7 +1,7 @@
 package com.example.development.sakaiclient20.networking.deserializers;
 
 import com.example.development.sakaiclient20.persistence.entities.Assignment;
-import com.example.development.sakaiclient20.persistence.entities.AttachmentEntity;
+import com.example.development.sakaiclient20.persistence.entities.Attachment;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
@@ -24,11 +24,11 @@ public class AssignmentDeserializer implements JsonDeserializer<Assignment> {
 
         // TODO: Once the course to term map is created, set the assignment's
         // term
+        String assignmentId = json.get("entityId").getAsString();
+        Assignment assignment = new Assignment(assignmentId);
 
-        Assignment assignment = new Assignment();
-        assignment.assignmentId = json.get("entityId").getAsString();
         assignment.title = json.get("title").getAsString();
-        assignment.context = json.get("context").getAsString();
+        assignment.siteId = json.get("context").getAsString();
         assignment.instructions = json.get("instructions").getAsString();
 
         assignment.entityURL = json.get("entityURL").getAsString();
@@ -51,7 +51,7 @@ public class AssignmentDeserializer implements JsonDeserializer<Assignment> {
         JsonArray attachments = json.get("attachments").getAsJsonArray();
         for(int i = 0; i < attachments.size(); i++) {
             JsonObject attachmentObject = attachments.get(i).getAsJsonObject();
-            AttachmentEntity attachment = new AttachmentEntity();
+            Attachment attachment = new Attachment();
 
             attachment.assignmentId = assignment.assignmentId;
             attachment.name = attachmentObject.get("name").getAsString();

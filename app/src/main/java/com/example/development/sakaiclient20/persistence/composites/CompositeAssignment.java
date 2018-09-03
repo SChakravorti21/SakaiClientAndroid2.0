@@ -4,7 +4,7 @@ import android.arch.persistence.room.Embedded;
 import android.arch.persistence.room.Relation;
 
 import com.example.development.sakaiclient20.persistence.entities.Assignment;
-import com.example.development.sakaiclient20.persistence.entities.AttachmentEntity;
+import com.example.development.sakaiclient20.persistence.entities.Attachment;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ public class CompositeAssignment {
     public final Assignment assignment;
 
     @Relation(parentColumn = "id", entityColumn = "assignmentId")
-    public List<AttachmentEntity> attachments;
+    public List<Attachment> attachments;
 
     public CompositeAssignment(Assignment assignment) {
         this.assignment = assignment;

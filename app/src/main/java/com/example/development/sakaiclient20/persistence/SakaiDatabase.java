@@ -6,11 +6,11 @@ import android.arch.persistence.room.RoomDatabase;
 import android.arch.persistence.room.TypeConverters;
 import android.content.Context;
 
+import com.example.development.sakaiclient20.persistence.entities.Attachment;
 import com.example.development.sakaiclient20.persistence.typeconverters.DateConverter;
 import com.example.development.sakaiclient20.persistence.entities.Assignment;
-import com.example.development.sakaiclient20.persistence.entities.AttachmentEntity;
 import com.example.development.sakaiclient20.persistence.entities.CourseEntity;
-import com.example.development.sakaiclient20.persistence.entities.GradeEntity;
+import com.example.development.sakaiclient20.persistence.entities.Grade;
 import com.example.development.sakaiclient20.persistence.typeconverters.TermConverter;
 
 /**
@@ -19,9 +19,9 @@ import com.example.development.sakaiclient20.persistence.typeconverters.TermConv
 
 @Database(entities = {
             CourseEntity.class,
-            GradeEntity.class,
+            Grade.class,
             Assignment.class,
-            AttachmentEntity.class
+            Attachment.class
         }, version = 1)
 @TypeConverters({DateConverter.class, TermConverter.class})
 public abstract class SakaiDatabase extends RoomDatabase {

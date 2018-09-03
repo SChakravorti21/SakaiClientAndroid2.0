@@ -15,20 +15,13 @@ import android.arch.persistence.room.PrimaryKey;
                                     childColumns = "siteId",
                                     onDelete = ForeignKey.CASCADE,
                                     onUpdate = ForeignKey.CASCADE),
-        indices = @Index(value = "courseId"))
-public class GradeEntity {
+        indices = @Index(value = "siteId"))
+public class Grade {
     @PrimaryKey(autoGenerate = true)
     public int id;
 
-    public final int siteId;
-    public final String grade;
-    public final String itemName;
-    public final double points;
-
-    public GradeEntity(final int siteId, String grade, String itemName, double points) {
-        this.siteId = siteId;
-        this.grade = grade;
-        this.itemName = itemName;
-        this.points = points;
-    }
+    public String siteId;
+    public String grade;
+    public String itemName;
+    public double points;
 }

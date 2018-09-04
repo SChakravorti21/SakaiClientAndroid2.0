@@ -51,12 +51,8 @@ public class AssignmentDeserializer implements JsonDeserializer<Assignment> {
         JsonArray attachments = json.get("attachments").getAsJsonArray();
         for(int i = 0; i < attachments.size(); i++) {
             JsonObject attachmentObject = attachments.get(i).getAsJsonObject();
-            Attachment attachment = new Attachment();
-
+            Attachment attachment = context.deserialize(attachmentObject, Attachment.class);
             attachment.assignmentId = assignment.assignmentId;
-            attachment.name = attachmentObject.get("name").getAsString();
-            attachment.url = attachmentObject.get("url").getAsString();
-
             assignment.attachments.add(attachment);
         }
 

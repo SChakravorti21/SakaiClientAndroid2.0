@@ -4,9 +4,11 @@ import android.content.Context;
 
 import com.example.development.sakaiclient20.R;
 import com.example.development.sakaiclient20.networking.deserializers.AssignmentDeserializer;
+import com.example.development.sakaiclient20.networking.deserializers.AttachmentDeserializer;
 import com.example.development.sakaiclient20.networking.deserializers.GradeDeserializer;
 import com.example.development.sakaiclient20.networking.utilities.HeaderInterceptor;
 import com.example.development.sakaiclient20.persistence.entities.Assignment;
+import com.example.development.sakaiclient20.persistence.entities.Attachment;
 import com.example.development.sakaiclient20.persistence.entities.Grade;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -41,14 +43,15 @@ public class ServiceFactory {
                 .baseUrl(baseUrl)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(httpClient);
-        addConvertFactories(retrofitBuilder);
+        addConverterFactories(retrofitBuilder);
 
         return retrofitBuilder.build().create(serviceClass);
     }
 
-    private static void addConvertFactories(Retrofit.Builder builder) {
+    private static void addConverterFactories(Retrofit.Builder builder) {
         builder.addConverterFactory(GsonConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(getAssignmentDeserializer()))
+                .addConverterFactory(GsonConverterFactory.create(getAttachmentDeserializer()))
                 .addConverterFactory(GsonConverterFactory.create(getGradeDeserializer()));
     }
 
@@ -56,6 +59,13 @@ public class ServiceFactory {
         return new GsonBuilder()
                 .setLenient()
                 .registerTypeAdapter(Assignment.class, new AssignmentDeserializer())
+                .create();
+    }
+
+    private static Gson getAttachmentDeserializer() {
+        return new GsonBuilder()
+                .setLenient()
+                .registerTypeAdapter(Attachment.class, new AttachmentDeserializer())
                 .create();
     }
 

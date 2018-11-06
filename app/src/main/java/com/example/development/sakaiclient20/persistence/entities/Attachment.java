@@ -17,16 +17,10 @@ import com.example.development.sakaiclient20.models.sakai.announcements.Announce
                 parentColumns = "assignmentId",
                 childColumns = "assignmentId",
                 onDelete = ForeignKey.CASCADE,
-                onUpdate = ForeignKey.CASCADE),
-            @ForeignKey(entity = Announcement.class,
-                    parentColumns = "announcementId",
-                    childColumns = "announcementId",
-                    onDelete = ForeignKey.CASCADE,
-                    onUpdate = ForeignKey.CASCADE)
+                onUpdate = ForeignKey.CASCADE)
         },
         indices =  {
-            @Index(value = "assignmentId"),
-            @Index(value = "announcementId")
+            @Index(value = "assignmentId")
         })
 public class Attachment {
     @PrimaryKey(autoGenerate = true)
@@ -36,6 +30,5 @@ public class Attachment {
     public String url;
 
     public String assignmentId;
-    public String announcementId;
 
 }

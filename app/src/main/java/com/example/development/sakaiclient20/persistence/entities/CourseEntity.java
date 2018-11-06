@@ -2,6 +2,7 @@ package com.example.development.sakaiclient20.persistence.entities;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
 import com.example.development.sakaiclient20.models.custom.Course;
 import com.example.development.sakaiclient20.models.custom.Term;
@@ -13,6 +14,7 @@ import com.example.development.sakaiclient20.models.custom.Term;
 @Entity(tableName = "courses")
 public class CourseEntity {
 
+    @NonNull
     @PrimaryKey
     public final String siteId;
 

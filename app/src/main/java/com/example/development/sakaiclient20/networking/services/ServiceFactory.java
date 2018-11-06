@@ -49,8 +49,10 @@ public class ServiceFactory {
     }
 
     private static void addConverterFactories(Retrofit.Builder builder) {
-        builder.addConverterFactory(GsonConverterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create(getAssignmentDeserializer()))
+        // The order in which the converter factories are added matters because
+        // Gson will check all the converters IN THE ORDER THEY WERE ADDED when
+        // trying to deserialize a JSON object
+        builder.addConverterFactory(GsonConverterFactory.create(getAssignmentDeserializer()))
                 .addConverterFactory(GsonConverterFactory.create(getAttachmentDeserializer()))
                 .addConverterFactory(GsonConverterFactory.create(getGradeDeserializer()));
     }

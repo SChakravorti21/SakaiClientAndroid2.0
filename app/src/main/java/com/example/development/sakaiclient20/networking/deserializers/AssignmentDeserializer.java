@@ -20,33 +20,35 @@ public class AssignmentDeserializer implements JsonDeserializer<Assignment> {
                                   JsonDeserializationContext context)
             throws JsonParseException {
 
+
         JsonObject json = raw.getAsJsonObject();
 
         // TODO: Once the course to term map is created, set the assignment's
         // term
-        String assignmentId = json.get("entityId").getAsString();
+        String assignmentId = json.get("entityId").toString();
         Assignment assignment = new Assignment(assignmentId);
 
-        assignment.title = json.get("title").getAsString();
-        assignment.siteId = json.get("context").getAsString();
-        assignment.instructions = json.get("instructions").getAsString();
+        assignment.title = json.get("title").toString();
+        assignment.siteId = json.get("context").toString();
+        assignment.instructions = json.get("instructions").toString();
 
-        assignment.entityURL = json.get("entityURL").getAsString();
-        assignment.entityTitle = json.get("entityTitle").getAsString();
-        assignment.entityReference = json.get("entityReference").getAsString();
+        assignment.entityURL = json.get("entityURL").toString();
+        assignment.entityTitle = json.get("entityTitle").toString();
+        assignment.entityReference = json.get("entityReference").toString();
 
-        assignment.status = json.get("status").getAsString();
+        assignment.status = json.get("status").toString();
         long dueTimeMilliseconds = json.get("dueTime")
                                         .getAsJsonObject()
                                         .get("time").getAsLong();
+
         assignment.dueTime = new Date(dueTimeMilliseconds);
         assignment.allowResubmission = json.get("allowResubmission").getAsBoolean();
 
-        assignment.creator = json.get("creator").getAsString();
-        assignment.authorLastModified = json.get("authorLastModified").getAsString();
+        assignment.creator = json.get("creator").toString();
+        assignment.authorLastModified = json.get("authorLastModified").toString();
 
-        assignment.gradeScale = json.get("gradeScale").getAsString();
-        assignment.gradeScaleMaxPoints = json.get("gradeScaleMaxPoints").getAsString();
+        assignment.gradeScale = json.get("gradeScale").toString();
+        assignment.gradeScaleMaxPoints = json.get("gradeScaleMaxPoints").toString();
 
         JsonArray attachments = json.get("attachments").getAsJsonArray();
         for(int i = 0; i < attachments.size(); i++) {

@@ -5,6 +5,7 @@ import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
 import com.example.development.sakaiclient20.models.custom.Term;
 
@@ -27,6 +28,7 @@ import java.util.List;
         })
 public class Assignment {
 
+    @NonNull
     @PrimaryKey
     public final String assignmentId;
 

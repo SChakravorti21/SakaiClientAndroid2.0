@@ -23,13 +23,13 @@ public abstract class AssignmentDao implements BaseDao<Assignment> {
     }
 
     @Transaction
-    @Query("SELECT * FROM Assignment ORDER BY dueTime")
+    @Query("SELECT * FROM assignments ORDER BY dueTime")
     public abstract Flowable<List<CompositeAssignment>> getAllAssignments();
 
     @Transaction //Wrap in transaction since Room technically performs multiple transactions
-    @Query("SELECT * FROM Assignment WHERE siteId = :siteId")
+    @Query("SELECT * FROM assignments WHERE siteId = :siteId")
     public abstract Flowable<List<CompositeAssignment>> getAssignmentsForSite(String siteId);
 
-    @Query("DELETE FROM Assignment WHERE siteId = :siteId")
+    @Query("DELETE FROM assignments WHERE siteId = :siteId")
     public abstract void deleteAllForSite(int siteId);
 }

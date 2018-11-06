@@ -6,6 +6,7 @@ import android.arch.persistence.room.RoomDatabase;
 import android.arch.persistence.room.TypeConverters;
 import android.content.Context;
 
+import com.example.development.sakaiclient20.persistence.access.AssignmentDao;
 import com.example.development.sakaiclient20.persistence.entities.Attachment;
 import com.example.development.sakaiclient20.persistence.typeconverters.DateConverter;
 import com.example.development.sakaiclient20.persistence.entities.Assignment;
@@ -26,11 +27,13 @@ import com.example.development.sakaiclient20.persistence.typeconverters.TermConv
 @TypeConverters({DateConverter.class, TermConverter.class})
 public abstract class SakaiDatabase extends RoomDatabase {
 
+    private static final Object lock = new Object();
     private static volatile SakaiDatabase mInstance;
+    public AssignmentDao assignmentDao;
 
     public static SakaiDatabase getInstance(Context context) {
         if(mInstance == null) {
-            synchronized (mInstance) {
+            synchronized (lock) {
                 if(mInstance == null) {
                     mInstance = Room
                             .databaseBuilder(context, SakaiDatabase.class, "Sakai.db")

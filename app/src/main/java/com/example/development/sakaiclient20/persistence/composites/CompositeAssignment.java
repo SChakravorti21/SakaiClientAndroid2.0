@@ -17,7 +17,7 @@ public class CompositeAssignment {
     @Embedded
     public final Assignment assignment;
 
-    @Relation(parentColumn = "id", entityColumn = "assignmentId")
+    @Relation(parentColumn = "assignmentId", entityColumn = "assignmentId")
     public List<Attachment> attachments;
 
     public CompositeAssignment(Assignment assignment) {

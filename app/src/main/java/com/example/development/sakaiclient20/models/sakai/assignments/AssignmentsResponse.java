@@ -13,15 +13,9 @@ public class AssignmentsResponse implements Serializable
 
     @SerializedName("assignment_collection")
     @Expose
-    private List<Assignment> assignment = new ArrayList<>();
-    private final static long serialVersionUID = 6209006925278274013L;
+    private List<Assignment> assignments = new ArrayList<>();
 
     public List<Assignment> getAssignments() {
-        return assignment;
+        return assignments;
     }
-
-    public void setAssignments(List<Assignment> assignment) {
-        this.assignment = assignment;
-    }
-
 }

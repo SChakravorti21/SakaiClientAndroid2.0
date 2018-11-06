@@ -5,8 +5,10 @@ import android.os.AsyncTask;
 import com.example.development.sakaiclient20.models.sakai.assignments.AssignmentsResponse;
 import com.example.development.sakaiclient20.networking.services.AssignmentsService;
 import com.example.development.sakaiclient20.persistence.access.AssignmentDao;
+import com.example.development.sakaiclient20.persistence.access.AttachmentDao;
 import com.example.development.sakaiclient20.persistence.composites.CompositeAssignment;
 import com.example.development.sakaiclient20.persistence.entities.Assignment;
+import com.example.development.sakaiclient20.persistence.entities.Attachment;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -21,10 +23,16 @@ import io.reactivex.Single;
 public class AssignmentRepository {
 
     private AssignmentDao assignmentDao;
+    private AttachmentDao attachmentDao;
     private AssignmentsService assignmentsService;
 
-    public AssignmentRepository(AssignmentDao dao, AssignmentsService service) {
-        this.assignmentDao = dao;
+    public AssignmentRepository(
+            AssignmentDao assignmentDao,
+            AttachmentDao attachmentDao,
+            AssignmentsService service
+    ) {
+        this.assignmentDao = assignmentDao;
+        this.attachmentDao = attachmentDao;
         this.assignmentsService = service;
     }
 
@@ -56,7 +64,7 @@ public class AssignmentRepository {
 
     private List<Assignment> persistAssignments(AssignmentsResponse response) {
         List<Assignment> assignments = response.getAssignments();
-        InsertAssignmentsTask task = new InsertAssignmentsTask(assignmentDao);
+        InsertAssignmentsTask task = new InsertAssignmentsTask(assignmentDao, attachmentDao);
 
         // Using generic varargs can supposedly pollute the heap,
         // so convert to array before passing as task argument
@@ -80,17 +88,25 @@ public class AssignmentRepository {
     private static class InsertAssignmentsTask extends AsyncTask<Assignment, Void, Void> {
 
         private WeakReference<AssignmentDao> assignmentDao;
+        private WeakReference<AttachmentDao> attachmentDao;
 
-        private InsertAssignmentsTask(AssignmentDao assignmentDao) {
+        private InsertAssignmentsTask(AssignmentDao assignmentDao, AttachmentDao attachmentDao) {
             this.assignmentDao = new WeakReference<>(assignmentDao);
+            this.attachmentDao = new WeakReference<>(attachmentDao);
         }
 
         @Override
         protected Void doInBackground(Assignment... assignments) {
             if(assignmentDao == null || assignmentDao.get() == null)
                 return null;
+            if(attachmentDao == null || attachmentDao.get() == null)
+                return null;
 
             assignmentDao.get().insert(assignments);
+            for(Assignment assignment : assignments)
+                for(Attachment attachment : assignment.attachments)
+                    attachmentDao.get().insert(attachment);
+
             return null;
         }
     }

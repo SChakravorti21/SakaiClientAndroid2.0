@@ -9,6 +9,7 @@ import com.example.development.sakaiclient20.networking.services.AssignmentsServ
 import com.example.development.sakaiclient20.networking.services.ServiceFactory;
 import com.example.development.sakaiclient20.persistence.SakaiDatabase;
 import com.example.development.sakaiclient20.persistence.access.AssignmentDao;
+import com.example.development.sakaiclient20.persistence.access.AttachmentDao;
 import com.example.development.sakaiclient20.persistence.entities.Assignment;
 import com.example.development.sakaiclient20.repositories.AssignmentRepository;
 
@@ -23,10 +24,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         AssignmentsService service = ServiceFactory.getService(this, AssignmentsService.class);
-        AssignmentDao dao = SakaiDatabase.getInstance(this).assignmentDao;
-        AssignmentRepository repo = new AssignmentRepository(dao, service);
+        AssignmentDao assignmentDao = SakaiDatabase.getInstance(this).getAssignmentDao();
+        AttachmentDao attachmentDao = SakaiDatabase.getInstance(this).getAttachmentDao();
+        AssignmentRepository repo = new AssignmentRepository(assignmentDao, attachmentDao, service);
 
-        repo.getAllAssignments(true)
+        repo.getAllAssignments(false)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

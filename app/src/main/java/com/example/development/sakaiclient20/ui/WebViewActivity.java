@@ -44,6 +44,8 @@ public class WebViewActivity extends AppCompatActivity {
         //The CAS system requires Javascript for the login to even load
         WebSettings loginSettings = loginWebView.getSettings();
         loginSettings.setJavaScriptEnabled(true);
+        loginSettings.setSaveFormData(true);
+        loginSettings.setSavePassword(true);
 
         // Load the login page once all configurations are complete
         loginWebView.loadUrl(getString(R.string.CAS_BASE_URL));

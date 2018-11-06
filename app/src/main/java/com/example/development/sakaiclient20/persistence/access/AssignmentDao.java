@@ -1,5 +1,6 @@
 package com.example.development.sakaiclient20.persistence.access;
 
+import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Transaction;
 
@@ -13,7 +14,7 @@ import io.reactivex.Flowable;
 /**
  * Created by Development on 8/5/18.
  */
-
+@Dao
 public abstract class AssignmentDao implements BaseDao<Assignment> {
 
     @Transaction

@@ -18,11 +18,11 @@ import java.util.List;
  */
 
 @Entity(tableName = "assignments",
-        foreignKeys = @ForeignKey(entity = CourseEntity.class,
-                                    parentColumns = "siteId",
-                                    childColumns = "siteId",
-                                    onDelete = ForeignKey.CASCADE,
-                                    onUpdate = ForeignKey.CASCADE),
+//        foreignKeys = @ForeignKey(entity = CourseEntity.class,
+//                                    parentColumns = "siteId",
+//                                    childColumns = "siteId",
+//                                    onDelete = ForeignKey.CASCADE,
+//                                    onUpdate = ForeignKey.CASCADE),
         indices = { @Index(value = "siteId"),
                     @Index(value = "assignmentId")
         })

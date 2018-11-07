@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.example.development.sakaiclient20.R;
+import com.example.development.sakaiclient20.models.custom.Course;
 import com.example.development.sakaiclient20.networking.services.AssignmentsService;
 import com.example.development.sakaiclient20.networking.services.ServiceFactory;
+import com.example.development.sakaiclient20.networking.services.SitesService;
 import com.example.development.sakaiclient20.persistence.SakaiDatabase;
 import com.example.development.sakaiclient20.persistence.access.AssignmentDao;
 import com.example.development.sakaiclient20.persistence.access.AttachmentDao;
@@ -23,12 +25,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        AssignmentsService service = ServiceFactory.getService(this, AssignmentsService.class);
+        AssignmentsService assignmentsService = ServiceFactory.getService(this, AssignmentsService.class);
         AssignmentDao assignmentDao = SakaiDatabase.getInstance(this).getAssignmentDao();
         AttachmentDao attachmentDao = SakaiDatabase.getInstance(this).getAttachmentDao();
-        AssignmentRepository repo = new AssignmentRepository(assignmentDao, attachmentDao, service);
+        AssignmentRepository repo = new AssignmentRepository(assignmentDao, attachmentDao, assignmentsService);
 
-        repo.getAllAssignments(false)
+        repo.getAllAssignments(true)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -39,5 +41,18 @@ public class MainActivity extends AppCompatActivity {
                         },
                         error -> error.printStackTrace()
                 );
+
+        SitesService sitesService = ServiceFactory.getService(this, SitesService.class);
+        sitesService.getAllSites()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        sites -> {
+                            for(Course site : sites.getCourses())
+                                Log.d("Sit", site.getTitle());
+                        },
+                        Throwable::printStackTrace
+                );
+
     }
 }

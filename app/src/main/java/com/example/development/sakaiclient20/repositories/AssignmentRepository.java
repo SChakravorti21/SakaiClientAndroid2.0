@@ -45,7 +45,7 @@ public class AssignmentRepository {
             return assignmentDao
                     .getAllAssignments()
                     .firstOrError()
-                    .map(this::convertCompositesToDTO);
+                    .map(this::flattenCompositesToEntities);
         }
     }
 
@@ -58,7 +58,7 @@ public class AssignmentRepository {
             return assignmentDao
                     .getAssignmentsForSite(siteId)
                     .firstOrError()
-                    .map(this::convertCompositesToDTO);
+                    .map(this::flattenCompositesToEntities);
         }
     }
 
@@ -69,20 +69,19 @@ public class AssignmentRepository {
         // Using generic varargs can supposedly pollute the heap,
         // so convert to array before passing as task argument
         task.execute(assignments.toArray(new Assignment[assignments.size()]));
-
         return assignments;
     }
 
-    private List<Assignment> convertCompositesToDTO(List<CompositeAssignment> assignmentEntities) {
-        List<Assignment> assignmentDTOs = new ArrayList<>(assignmentEntities.size());
+    private List<Assignment> flattenCompositesToEntities(List<CompositeAssignment> assignmentComposites) {
+        List<Assignment> assignmentEntities = new ArrayList<>(assignmentComposites.size());
 
-        for(CompositeAssignment composite : assignmentEntities) {
+        for(CompositeAssignment composite : assignmentComposites) {
             Assignment assignment = composite.assignment;
             assignment.attachments = composite.attachments;
-            assignmentDTOs.add(assignment);
+            assignmentEntities.add(assignment);
         }
 
-        return assignmentDTOs;
+        return assignmentEntities;
     }
 
     private static class InsertAssignmentsTask extends AsyncTask<Assignment, Void, Void> {

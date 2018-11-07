@@ -1,4 +1,4 @@
-package com.example.development.sakaiclient20.common.builders;
+package com.example.development.sakaiclient20.networking.deserializers.builders;
 
 /**
  * Created by Development on 8/5/18.

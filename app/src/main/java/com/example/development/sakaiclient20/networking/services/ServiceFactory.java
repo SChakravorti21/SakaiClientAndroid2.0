@@ -3,13 +3,16 @@ package com.example.development.sakaiclient20.networking.services;
 import android.content.Context;
 
 import com.example.development.sakaiclient20.R;
+import com.example.development.sakaiclient20.models.custom.Course;
 import com.example.development.sakaiclient20.networking.deserializers.AssignmentDeserializer;
 import com.example.development.sakaiclient20.networking.deserializers.AttachmentDeserializer;
+import com.example.development.sakaiclient20.networking.deserializers.CourseDeserializer;
 import com.example.development.sakaiclient20.networking.deserializers.GradeDeserializer;
 import com.example.development.sakaiclient20.networking.utilities.HeaderInterceptor;
 import com.example.development.sakaiclient20.persistence.entities.Assignment;
 import com.example.development.sakaiclient20.persistence.entities.Attachment;
 import com.example.development.sakaiclient20.persistence.entities.Grade;
+import com.google.gson.ExclusionStrategy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -43,18 +46,30 @@ public class ServiceFactory {
                 .baseUrl(baseUrl)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(httpClient);
-        addConverterFactories(retrofitBuilder);
+        addConverterFactories(retrofitBuilder, serviceClass);
 
         return retrofitBuilder.build().create(serviceClass);
     }
 
-    private static void addConverterFactories(Retrofit.Builder builder) {
+    private static <Service> void addConverterFactories(Retrofit.Builder builder, Class<Service> serviceClass) {
         // The order in which the converter factories are added matters because
         // Gson will check all the converters IN THE ORDER THEY WERE ADDED when
         // trying to deserialize a JSON object
-        builder.addConverterFactory(GsonConverterFactory.create(getAssignmentDeserializer()))
-                .addConverterFactory(GsonConverterFactory.create(getAttachmentDeserializer()))
-                .addConverterFactory(GsonConverterFactory.create(getGradeDeserializer()));
+        if(serviceClass == AssignmentsService.class) {
+            builder.addConverterFactory(GsonConverterFactory.create(getAssignmentDeserializer()));
+            builder.addConverterFactory(GsonConverterFactory.create(getAttachmentDeserializer()));
+        } else if(serviceClass == SitesService.class) {
+            builder.addConverterFactory(GsonConverterFactory.create(getCourseDeserializer()));
+        } else if(serviceClass == GradesService.class) {
+            builder.addConverterFactory(GsonConverterFactory.create(getGradeDeserializer()));
+        }
+    }
+
+    private static Gson getCourseDeserializer() {
+        return new GsonBuilder()
+                .setLenient()
+                .registerTypeAdapter(Course.class, new CourseDeserializer())
+                .create();
     }
 
     private static Gson getAssignmentDeserializer() {

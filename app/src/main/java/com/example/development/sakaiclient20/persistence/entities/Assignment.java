@@ -1,13 +1,12 @@
 package com.example.development.sakaiclient20.persistence.entities;
 
 import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
-import com.example.development.sakaiclient20.models.custom.Term;
+import com.example.development.sakaiclient20.models.Term;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,7 +17,7 @@ import java.util.List;
  */
 
 @Entity(tableName = "assignments",
-//        foreignKeys = @ForeignKey(entity = CourseEntity.class,
+//        foreignKeys = @ForeignKey(entity = Course.class,
 //                                    parentColumns = "siteId",
 //                                    childColumns = "siteId",
 //                                    onDelete = ForeignKey.CASCADE,

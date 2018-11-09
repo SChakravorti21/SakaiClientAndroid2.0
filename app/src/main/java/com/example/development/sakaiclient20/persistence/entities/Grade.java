@@ -10,7 +10,7 @@ import android.arch.persistence.room.PrimaryKey;
  */
 
 @Entity(tableName = "grades",
-        foreignKeys = @ForeignKey(entity = CourseEntity.class,
+        foreignKeys = @ForeignKey(entity = Course.class,
                                     parentColumns = "siteId",
                                     childColumns = "siteId",
                                     onDelete = ForeignKey.CASCADE,

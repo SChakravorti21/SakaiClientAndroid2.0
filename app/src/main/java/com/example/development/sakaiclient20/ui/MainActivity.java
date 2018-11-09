@@ -1,18 +1,18 @@
 package com.example.development.sakaiclient20.ui;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.example.development.sakaiclient20.R;
-import com.example.development.sakaiclient20.models.custom.Course;
 import com.example.development.sakaiclient20.networking.services.AssignmentsService;
+import com.example.development.sakaiclient20.networking.services.CoursesService;
 import com.example.development.sakaiclient20.networking.services.ServiceFactory;
-import com.example.development.sakaiclient20.networking.services.SitesService;
 import com.example.development.sakaiclient20.persistence.SakaiDatabase;
 import com.example.development.sakaiclient20.persistence.access.AssignmentDao;
 import com.example.development.sakaiclient20.persistence.access.AttachmentDao;
 import com.example.development.sakaiclient20.persistence.entities.Assignment;
+import com.example.development.sakaiclient20.persistence.entities.Course;
 import com.example.development.sakaiclient20.repositories.AssignmentRepository;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -42,14 +42,14 @@ public class MainActivity extends AppCompatActivity {
                         error -> error.printStackTrace()
                 );
 
-        SitesService sitesService = ServiceFactory.getService(this, SitesService.class);
-        sitesService.getAllSites()
+        CoursesService coursesService = ServiceFactory.getService(this, CoursesService.class);
+        coursesService.getAllSites()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         sites -> {
                             for(Course site : sites.getCourses())
-                                Log.d("Sit", site.getTitle());
+                                Log.d("Sit", site.title);
                         },
                         Throwable::printStackTrace
                 );

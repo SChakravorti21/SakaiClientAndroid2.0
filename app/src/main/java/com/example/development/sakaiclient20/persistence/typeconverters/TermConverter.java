@@ -2,7 +2,7 @@ package com.example.development.sakaiclient20.persistence.typeconverters;
 
 import android.arch.persistence.room.TypeConverter;
 
-import com.example.development.sakaiclient20.models.custom.Term;
+import com.example.development.sakaiclient20.models.Term;
 
 /**
  * Created by Development on 8/5/18.

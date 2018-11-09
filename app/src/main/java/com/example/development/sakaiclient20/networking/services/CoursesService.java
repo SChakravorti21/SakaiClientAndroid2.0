@@ -1,9 +1,6 @@
 package com.example.development.sakaiclient20.networking.services;
 
-import com.example.development.sakaiclient20.models.custom.Course;
 import com.example.development.sakaiclient20.models.sakai.courses.CoursesResponse;
-
-import java.util.List;
 
 import io.reactivex.Single;
 import okhttp3.ResponseBody;
@@ -14,7 +11,7 @@ import retrofit2.http.Path;
  * Created by Shoumyo Chakravorti on 8/5/18.
  */
 
-public interface SitesService {
+public interface CoursesService {
     @GET("site.json")
     Single<CoursesResponse> getAllSites();
 

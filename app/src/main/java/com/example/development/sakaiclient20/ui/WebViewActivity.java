@@ -10,8 +10,6 @@ import android.webkit.WebView;
 import com.example.development.sakaiclient20.R;
 import com.example.development.sakaiclient20.utils.requests.CASWebViewClient;
 
-import okhttp3.Headers;
-
 public class WebViewActivity extends AppCompatActivity {
 
     @Override

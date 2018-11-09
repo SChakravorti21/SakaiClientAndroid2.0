@@ -1,6 +1,5 @@
 package com.example.development.sakaiclient20.networking.utilities;
 
-import android.content.Context;
 import android.util.Log;
 import android.webkit.CookieManager;
 

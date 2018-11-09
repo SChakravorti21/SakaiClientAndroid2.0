@@ -1,7 +1,7 @@
 package com.example.development.sakaiclient20.networking.deserializers.builders.courses;
 
-import com.example.development.sakaiclient20.models.custom.SitePage;
 import com.example.development.sakaiclient20.networking.deserializers.builders.AbstractBuilder;
+import com.example.development.sakaiclient20.persistence.entities.SitePage;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -16,7 +16,7 @@ public class SitePagesBuilder extends AbstractBuilder<JsonArray, List<SitePage>>
 
     private String assignmentSitePageUrl;
 
-    public SitePagesBuilder(JsonArray jsonArray) {
+    SitePagesBuilder(JsonArray jsonArray) {
         super(jsonArray);
     }
 
@@ -29,8 +29,8 @@ public class SitePagesBuilder extends AbstractBuilder<JsonArray, List<SitePage>>
             SitePage sitePage = buildSitePage(json);
             result.add(sitePage);
 
-            if(sitePage.getTitle().toLowerCase().contains("assignment")) {
-                this.assignmentSitePageUrl = sitePage.getUrl();
+            if(sitePage.title.toLowerCase().contains("assignment")) {
+                this.assignmentSitePageUrl = sitePage.url;
             }
         }
 

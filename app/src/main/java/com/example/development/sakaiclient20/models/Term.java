@@ -1,4 +1,4 @@
-package com.example.development.sakaiclient20.models.custom;
+package com.example.development.sakaiclient20.models;
 
 import android.support.annotation.NonNull;
 

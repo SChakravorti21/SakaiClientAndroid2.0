@@ -1,15 +1,12 @@
 package com.example.development.sakaiclient20.networking.deserializers.builders.courses;
 
-import com.example.development.sakaiclient20.models.custom.Course;
-import com.example.development.sakaiclient20.models.custom.SitePage;
-import com.example.development.sakaiclient20.models.custom.Term;
+import com.example.development.sakaiclient20.models.Term;
 import com.example.development.sakaiclient20.networking.deserializers.builders.AbstractBuilder;
+import com.example.development.sakaiclient20.persistence.entities.Course;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
-
-import java.util.List;
 
 /**
  * Created by Development on 8/5/18.
@@ -23,25 +20,21 @@ public class CourseBuilder extends AbstractBuilder<JsonObject, Course> {
 
     @Override
     public CourseBuilder build() {
-        result = new Course();
+        // Initialize the course with the siteId
+        result = new Course(source.get("id").getAsString());
 
-        result.setTerm(parseTerm());
-        result.setSubjectCode(parseSubjectCode());
-
-        result.setId(source.get("id").getAsString());
-        result.setTitle(source.get("title").getAsString());
-        result.setDescription(source.get("description").getAsString());
-        result.setSiteOwner(
-                source.getAsJsonObject("siteOwner")
-                    .get("userDisplayName")
-                    .getAsString()
-        );
+        result.term = parseTerm();
+        result.subjectCode = parseSubjectCode();
+        result.title = source.get("title").getAsString();
+        result.description = source.get("description").getAsString();
+        result.siteOwner = source.getAsJsonObject("siteOwner")
+                .get("userDisplayName")
+                .getAsString();
 
         JsonArray rawSitePages = source.getAsJsonArray("sitePages");
         SitePagesBuilder builder = new SitePagesBuilder(rawSitePages);
-        List<SitePage> sitePages = builder.build().getResult();
-        result.setSitePages(sitePages);
-        result.setAssignmentSitePageUrl(builder.getAssignmentSitePageUrl());
+        result.sitePages = builder.build().getResult();
+        result.assignmentSitePageUrl = builder.getAssignmentSitePageUrl();
 
         return this;
     }

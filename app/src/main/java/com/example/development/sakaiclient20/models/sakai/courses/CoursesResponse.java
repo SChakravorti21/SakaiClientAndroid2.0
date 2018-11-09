@@ -1,6 +1,6 @@
 package com.example.development.sakaiclient20.models.sakai.courses;
 
-import com.example.development.sakaiclient20.models.custom.Course;
+import com.example.development.sakaiclient20.persistence.entities.Course;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

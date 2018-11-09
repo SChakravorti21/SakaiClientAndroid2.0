@@ -5,8 +5,6 @@ import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 
-import com.example.development.sakaiclient20.models.sakai.announcements.Announcement;
-
 /**
  * Created by Development on 8/5/18.
  */

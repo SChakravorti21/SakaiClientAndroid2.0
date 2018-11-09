@@ -56,6 +56,10 @@ public class Term implements Comparable<Term>, Serializable{
 
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        return obj != null && obj instanceof Term && this.compareTo((Term) obj) == 0;
+    }
 
     public int getYear() {
         return this.year;

@@ -5,6 +5,7 @@ import android.arch.persistence.room.Relation;
 
 import com.example.development.sakaiclient20.persistence.entities.Course;
 import com.example.development.sakaiclient20.persistence.entities.Grade;
+import com.example.development.sakaiclient20.persistence.entities.SitePage;
 
 import java.util.List;
 
@@ -16,11 +17,14 @@ public class CompositeCourse {
     @Embedded
     public final Course course;
 
-    @Relation(parentColumn = "id", entityColumn = "courseId")
-    public List<CompositeAssignment> assignments;
-
-    @Relation(parentColumn = "id", entityColumn = "courseId")
+    @Relation(parentColumn = "siteId", entityColumn = "siteId")
     public List<Grade> grades;
+
+    @Relation(parentColumn = "siteId", entityColumn = "siteId")
+    public List<SitePage> sitePages;
+
+    @Relation(parentColumn = "siteId", entityColumn = "siteId")
+    public List<CompositeAssignment> assignments;
 
     public CompositeCourse(Course course) {
         this.course = course;
